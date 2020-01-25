@@ -1,44 +1,44 @@
 import React, { Component } from "react";
 
-class Search extends Component {
+export default class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = null;
-    this.onSubmit = this.onSubmit.bind(this);
+    this.state = { username: "" };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onSubmit(e) {
-    if (e) e.preventDefault();
-    let username = document.getElementsByClassName("input")[0].value;
-
+  handleSubmit(e) {
+    e.preventDefault();
+    const { username } = this.state;
+    if (username === "") return;
+    this.setState({
+      username: ""
+    });
     this.props.onSubmit(username);
-    document.getElementsByClassName("input")[0].value = "";
+  }
+
+  handleChange(e) {
+    this.setState({ username: e.target.value });
   }
 
   render() {
     return (
       <section className="section">
-        <form
-          onSubmit={e => {
-            this.onSubmit(e);
-          }}
-        >
+        <form onSubmit={this.handleSubmit}>
           <div className="field has-addons has-addons-centered">
             <div className="control">
               <input
                 className="input"
                 type="text"
                 placeholder="Username"
-              ></input>
+                value={this.state.username}
+                onChange={this.handleChange}
+                required
+              />
             </div>
             <div className="control">
-              <a
-                href="#"
-                onClick={e => this.onSubmit(e)}
-                className="button is-primary"
-              >
-                Analyze
-              </a>
+              <button className="button is-primary">Analyze</button>
             </div>
           </div>
         </form>
@@ -46,5 +46,3 @@ class Search extends Component {
     );
   }
 }
-
-export default Search;
