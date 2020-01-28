@@ -1,23 +1,19 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Repo from "./Repo";
 
-class Repos extends Component {
-  render() {
-    const divStyle = { flexWrap: "wrap" };
+export default function Repos(props) {
+  const divStyle = { flexWrap: "wrap" };
 
-    return (
-      <Fragment>
-        <p className="title is-4 center">Repositories</p>
-        <div className="tile is-ancestor">
-          <div className="tile is-12 is-parent" style={divStyle}>
-            {this.props.repos.map(repo => (
-              <Repo repo={repo} />
-            ))}
-          </div>
+  return (
+    <Fragment>
+      <p className="title is-4 has-text-centered">Repositories</p>
+      <div className="tile is-ancestor">
+        <div className="tile is-12 is-parent" style={divStyle}>
+          {props.repos.map(repo => (
+            <Repo key={repo.id} repo={repo} />
+          ))}
         </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
 }
-
-export default Repos;
