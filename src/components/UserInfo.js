@@ -2,7 +2,7 @@ import React from "react";
 import Repos from "./Repos";
 import User from "./User";
 
-function UserInfo({ user }) {
+export default function UserInfo({ user }) {
   return (
     <section className="section">
       <div className="container is-fluid">
@@ -22,12 +22,10 @@ function UserInfo({ user }) {
 
             <User user={user} />
 
-            <Repos repos={user.repos_info}></Repos>
+            <Repos repos={user.repos} />
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-export default UserInfo;

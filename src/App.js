@@ -4,35 +4,43 @@ import Search from "./components/Search";
 import UserInfo from "./components/UserInfo";
 import "./App.css";
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
       user: null
     };
-    this.getUser = this.getUser.bind(this);
-    this.getRepos = this.getRepos.bind(this);
+    this.handleUsername = this.handleUsername.bind(this);
+    this.fetchUserData = this.fetchUserData.bind(this);
   }
 
-  async getUser(username) {
-    let res = await fetch(`https://api.github.com/users/${username}`);
-    let info = await res.json();
-
-    info.repos_info = await this.getRepos(info.repos_url);
-
-    if (info.public_repos > 5) {
-      info.repos_info = info.repos_info.slice(0, 5);
-    }
-    info.created_at = new Date(info.created_at);
-
-    this.setState({
-      user: info
-    });
+  handleUsername(value) {
+    this.setState(
+      {
+        username: value
+      },
+      () => this.fetchUserData()
+    );
   }
 
-  async getRepos(url) {
-    let res = await fetch(url);
+  async fetchUserData() {
+    let res = await fetch(
+      `https://api.github.com/users/${this.state.username}`
+    );
+    let user = await res.json();
+
+    user.repos = await this.fetchRepos(`${user.repos_url}?sort=pushed`);
+    user.created_at = new Date(user.created_at);
+
+    this.setState({ user });
+  }
+
+  async fetchRepos(repos_url) {
+    let res = await fetch(repos_url);
     let repos = await res.json();
+
+    if (repos.length > 6) repos = repos.slice(0, 6);
 
     return repos;
   }
@@ -41,11 +49,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Search onSubmit={this.getUser} />
-        {this.state.user !== null && <UserInfo user={this.state.user} />}
+        <Search handleUsername={this.handleUsername} />
+        {this.state.user && <UserInfo user={this.state.user} />}
       </div>
     );
   }
 }
-
-export default App;
