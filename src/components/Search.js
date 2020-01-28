@@ -1,25 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 
 export default class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "" };
-    this.handleChange = this.handleChange.bind(this);
+    this.input = createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { username } = this.state;
-    if (username === "") return;
-    this.setState({
-      username: ""
-    });
-    this.props.onSubmit(username);
-  }
-
-  handleChange(e) {
-    this.setState({ username: e.target.value });
+    const username = this.input.current.value.toLowerCase();
+    if (!username.length) return;
+    this.input.current.value = "";
+    this.input.current.blur();
+    this.props.handleUsername(username);
   }
 
   render() {
@@ -32,8 +26,7 @@ export default class Search extends Component {
                 className="input"
                 type="text"
                 placeholder="Username"
-                value={this.state.username}
-                onChange={this.handleChange}
+                ref={this.input}
                 required
               />
             </div>
