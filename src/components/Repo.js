@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Repo({ repo }) {
-  return (
-    <div className="tile is-4 box is-child">
+const Repo = ({ repo }) => (
+  <div className="tile is-4 is-parent">
+    <div className="tile is-child box">
       <p className="title is-5">{repo.name}</p>
 
       <p>
@@ -19,5 +19,7 @@ export default function Repo({ repo }) {
       </p>
       <span className="tag is-info is-light is-rounded">{repo.language}</span>
     </div>
-  );
-}
+  </div>
+);
+
+export default Repo;

@@ -7,12 +7,10 @@ export default function Repos(props) {
   return (
     <Fragment>
       <p className="title is-4 has-text-centered">Repositories</p>
-      <div className="tile is-ancestor">
-        <div className="tile is-12 is-parent" style={divStyle}>
-          {props.repos.map(repo => (
-            <Repo key={repo.id} repo={repo} />
-          ))}
-        </div>
+      <div className="tile is-ancestor" style={divStyle}>
+        {props.repos.map(repo => (
+          <Repo key={repo.id} repo={repo} />
+        ))}
       </div>
     </Fragment>
   );
