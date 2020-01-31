@@ -45,6 +45,7 @@ export default class App extends Component {
     }
 
     user.repos = await this.fetchRepos(`${user.repos_url}?sort=pushed`);
+    user.followers_info = await this.fetchFollowers(user.followers_url);
     user.created_at = new Date(user.created_at);
 
     this.setState({ user });
@@ -57,6 +58,17 @@ export default class App extends Component {
     if (repos.length > 6) repos = repos.slice(0, 6);
 
     return repos;
+  }
+
+  async fetchFollowers(followers_url) {
+    let res = await fetch(followers_url);
+    let followers = await res.json();
+
+    followers.reverse();
+
+    if (followers.length > 8) followers = followers.slice(0, 8);
+
+    return followers;
   }
 
   render() {

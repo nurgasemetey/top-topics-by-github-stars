@@ -1,6 +1,7 @@
 import React from "react";
 import Repos from "./Repos";
 import User from "./User";
+import Followers from "./Followers";
 
 export default function UserInfo({ user }) {
   const createdYear = user.created_at.getFullYear();
@@ -28,6 +29,8 @@ export default function UserInfo({ user }) {
             </p>
 
             <User user={user} />
+
+            <Followers followers={user.followers_info} />
 
             <Repos repos={user.repos} />
           </div>
