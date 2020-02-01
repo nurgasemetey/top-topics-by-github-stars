@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Repo = ({ repo: { name, forks, stargazers_count, language } }) => (
   <div className="tile is-4 is-parent">
@@ -25,5 +26,9 @@ const Repo = ({ repo: { name, forks, stargazers_count, language } }) => (
     </div>
   </div>
 );
+
+Repo.propTypes = {
+  repo: PropTypes.object.isRequired
+};
 
 export default Repo;

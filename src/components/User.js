@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
 
 const User = props => {
   const {
@@ -72,6 +73,10 @@ const User = props => {
       </div>
     </Fragment>
   );
+};
+
+User.propTypes = {
+  user: PropTypes.object.isRequired
 };
 
 export default User;

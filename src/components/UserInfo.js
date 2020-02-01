@@ -2,6 +2,7 @@ import React from "react";
 import Repos from "./Repos";
 import User from "./User";
 import Followers from "./Followers";
+import PropTypes from "prop-types";
 
 const UserInfo = ({ user }) => {
   const { created_at, login, followers_info, repos } = user;
@@ -39,6 +40,10 @@ const UserInfo = ({ user }) => {
       </div>
     </section>
   );
+};
+
+UserInfo.propTypes = {
+  user: PropTypes.object.isRequired
 };
 
 export default UserInfo;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Follower = ({ follower }) => (
   <div className="tile is-3 is-parent">
@@ -28,5 +29,9 @@ const Follower = ({ follower }) => (
     </div>
   </div>
 );
+
+Follower.propTypes = {
+  follower: PropTypes.object.isRequired
+};
 
 export default Follower;

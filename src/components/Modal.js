@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Modal = ({ show, toggleModal }) => {
   return show ? (
@@ -17,6 +18,11 @@ const Modal = ({ show, toggleModal }) => {
       />
     </div>
   ) : null;
+};
+
+Modal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  toggleModal: PropTypes.func.isRequired
 };
 
 export default Modal;

@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
+import PropTypes from "prop-types";
 
-export default class Search extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.input = createRef();
@@ -39,3 +40,9 @@ export default class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  handleUsername: PropTypes.func.isRequired
+};
+
+export default Search;

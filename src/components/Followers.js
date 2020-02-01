@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import Follower from "./Follower";
+import PropTypes from "prop-types";
 
 const Followers = ({ followers }) => (
   <Fragment>
@@ -12,5 +13,9 @@ const Followers = ({ followers }) => (
     </div>
   </Fragment>
 );
+
+Followers.propTypes = {
+  followers: PropTypes.array.isRequired
+};
 
 export default Followers;
