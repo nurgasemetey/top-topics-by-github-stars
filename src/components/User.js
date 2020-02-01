@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 
 const User = props => {
   const {
+    bio,
+    login,
+    company,
     followers,
     following,
     public_repos,
@@ -42,33 +45,50 @@ const User = props => {
         </div>
       </div>
 
-      <div className="card is-shadowless" style={{ margin: "2em" }}>
-        <div className="card-image">
-          <figure className="image is-128x128">
-            <img src={avatar_url} alt="GitHub profile" />
-          </figure>
-        </div>
+      <div className="box is-shadowless">
+        <div className="media">
+          <div className="media-left">
+            <figure className="image is-128x128">
+              <img
+                className="is-rounded"
+                src={avatar_url}
+                alt="GitHub profile"
+              />
+            </figure>
+          </div>
 
-        <div className="card-content">
-          <p className="title is-4">{name}</p>
+          <div className="media-content">
+            <p className="title is-4">{name || login}</p>
 
-          {blog && (
-            <p>
-              <span className="icon">
-                <i className="fas fa-link" />
-              </span>{" "}
-              {blog}
-            </p>
-          )}
+            {bio && <p className="subtitle">{bio}</p>}
 
-          {location && (
-            <p>
-              <span className="icon">
-                <i className="fas fa-map-marker-alt" />
-              </span>{" "}
-              {location}
-            </p>
-          )}
+            {company && (
+              <p>
+                <span className="icon">
+                  <i className="fas fa-briefcase" />
+                </span>{" "}
+                {company}
+              </p>
+            )}
+
+            {location && (
+              <p>
+                <span className="icon">
+                  <i className="fas fa-map-marker-alt" />
+                </span>{" "}
+                {location}
+              </p>
+            )}
+
+            {blog && (
+              <p>
+                <span className="icon">
+                  <i className="fas fa-link" />
+                </span>{" "}
+                {blog}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </Fragment>
