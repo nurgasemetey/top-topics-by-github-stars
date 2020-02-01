@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-export default function User(props) {
+const User = props => {
   const {
     followers,
     following,
@@ -50,26 +50,28 @@ export default function User(props) {
 
         <div className="card-content">
           <p className="title is-4">{name}</p>
+
+          {blog && (
+            <p>
+              <span className="icon">
+                <i className="fas fa-link" />
+              </span>{" "}
+              {blog}
+            </p>
+          )}
+
+          {location && (
+            <p>
+              <span className="icon">
+                <i className="fas fa-map-marker-alt" />
+              </span>{" "}
+              {location}
+            </p>
+          )}
         </div>
-
-        {blog && (
-          <p>
-            <span className="icon">
-              <i className="fas fa-link"></i>
-            </span>{" "}
-            {blog}
-          </p>
-        )}
-
-        {location && (
-          <p>
-            <span className="icon">
-              <i className="fas fa-map-marker-alt"></i>
-            </span>{" "}
-            {location}
-          </p>
-        )}
       </div>
     </Fragment>
   );
-}
+};
+
+export default User;

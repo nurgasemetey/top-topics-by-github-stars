@@ -16,7 +16,12 @@ const Follower = ({ follower }) => (
             <strong>{follower.login}</strong>
           </p>
         </div>
-        <a href={follower.html_url} className="button is-link is-light">
+        <a
+          href={follower.html_url}
+          rel="noopener noreferrer"
+          target="_blank"
+          className="button is-link is-light"
+        >
           View
         </a>
       </div>

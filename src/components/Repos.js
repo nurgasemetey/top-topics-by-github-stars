@@ -1,17 +1,15 @@
 import React, { Fragment } from "react";
 import Repo from "./Repo";
 
-export default function Repos(props) {
-  const divStyle = { flexWrap: "wrap" };
+const Repos = props => (
+  <Fragment>
+    <p className="title is-4 has-text-centered">Repositories</p>
+    <div className="tile is-ancestor" style={{ flexWrap: "wrap" }}>
+      {props.repos.map(repo => (
+        <Repo key={repo.id} repo={repo} />
+      ))}
+    </div>
+  </Fragment>
+);
 
-  return (
-    <Fragment>
-      <p className="title is-4 has-text-centered">Repositories</p>
-      <div className="tile is-ancestor" style={divStyle}>
-        {props.repos.map(repo => (
-          <Repo key={repo.id} repo={repo} />
-        ))}
-      </div>
-    </Fragment>
-  );
-}
+export default Repos;
