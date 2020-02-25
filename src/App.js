@@ -1,85 +1,66 @@
-import React, { Component } from "react";
-import Header from "./components/Header";
-import Search from "./components/Search";
-import UserInfo from "./components/UserInfo";
-import Modal from "./components/Modal";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
+import Search from './components/Search';
+import UserInfo from './components/UserInfo';
+import Modal from './components/Modal';
+import './App.css';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      user: null,
-      showModal: false
+const App = () => {
+  const [url, setUrl] = useState('');
+  const [user, setUser] = useState(null);
+  const [modal, setModal] = useState(false);
+
+  const handleUsername = username =>
+    setUrl(`https://api.github.com/users/${username}`);
+
+  const toggleModal = () => setModal(!modal);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const fetchRepos = async repos_url => {
+        let res = await fetch(repos_url);
+        let repos = await res.json();
+
+        return repos;
+      };
+
+      const fetchFollowers = async followers_url => {
+        let res = await fetch(followers_url);
+        let followers = await res.json();
+
+        return followers.reverse();
+      };
+
+      let res = await fetch(url);
+      let user = await res.json();
+
+      if (user.message === 'Not Found') {
+        setModal(true);
+        setUrl('');
+        return;
+      }
+
+      user.repos = await fetchRepos(`${user.repos_url}?per_page=6&sort=pushed`);
+      user.followers_info = await fetchFollowers(
+        `${user.followers_url}?per_page=8`
+      );
+
+      user.created_at = new Date(user.created_at);
+
+      setUser(user);
     };
-    this.toggleModal = this.toggleModal.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
-    this.fetchUserData = this.fetchUserData.bind(this);
-  }
 
-  toggleModal() {
-    this.setState(state => ({
-      showModal: !state.showModal
-    }));
-  }
+    if (url.length) fetchUserData();
+  }, [url]);
 
-  handleUsername(value) {
-    this.setState(
-      {
-        username: value
-      },
-      () => this.fetchUserData()
-    );
-  }
+  return (
+    <div className='App'>
+      <Header />
+      <Search handleUsername={handleUsername} />
+      {user && <UserInfo user={user} />}
+      <Modal show={modal} toggleModal={toggleModal} />
+    </div>
+  );
+};
 
-  async fetchUserData() {
-    let res = await fetch(
-      `https://api.github.com/users/${this.state.username}`
-    );
-    let user = await res.json();
-
-    if (user.message === "Not Found") {
-      this.toggleModal();
-      return;
-    }
-
-    user.repos = await this.fetchRepos(
-      `${user.repos_url}?per_page=6&sort=pushed`
-    );
-    user.followers_info = await this.fetchFollowers(
-      `${user.followers_url}?per_page=8`
-    );
-
-    user.created_at = new Date(user.created_at);
-
-    this.setState({ user });
-  }
-
-  async fetchRepos(repos_url) {
-    let res = await fetch(repos_url);
-    let repos = await res.json();
-
-    return repos;
-  }
-
-  async fetchFollowers(followers_url) {
-    let res = await fetch(followers_url);
-    let followers = await res.json();
-
-    followers.reverse();
-
-    return followers;
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Search handleUsername={this.handleUsername} />
-        {this.state.user && <UserInfo user={this.state.user} />}
-        <Modal show={this.state.showModal} toggleModal={this.toggleModal} />
-      </div>
-    );
-  }
-}
+export default App;
