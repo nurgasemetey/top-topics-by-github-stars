@@ -1,45 +1,39 @@
-import React, { Component, createRef } from "react";
-import PropTypes from "prop-types";
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 
-class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.input = createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const Search = ({ handleUsername }) => {
+  const inputText = useRef(null);
 
-  handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault();
-    const username = this.input.current.value.toLowerCase();
+    const username = inputText.current.value;
     if (!username.length) return;
-    this.input.current.value = "";
-    this.input.current.blur();
-    this.props.handleUsername(username);
-  }
+    inputText.current.value = '';
+    inputText.current.blur();
+    handleUsername(username);
+  };
 
-  render() {
-    return (
-      <section className="section">
-        <form onSubmit={this.handleSubmit}>
-          <div className="field has-addons has-addons-centered">
-            <div className="control">
-              <input
-                className="input"
-                type="text"
-                placeholder="Username"
-                ref={this.input}
-                required
-              />
-            </div>
-            <div className="control">
-              <button className="button is-primary">Analyze</button>
-            </div>
+  return (
+    <section className='section'>
+      <form onSubmit={handleSubmit}>
+        <div className='field has-addons has-addons-centered'>
+          <div className='control'>
+            <input
+              className='input'
+              type='text'
+              placeholder='Username'
+              ref={inputText}
+              required
+            />
           </div>
-        </form>
-      </section>
-    );
-  }
-}
+          <div className='control'>
+            <button className='button is-primary'>Analyze</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  );
+};
 
 Search.propTypes = {
   handleUsername: PropTypes.func.isRequired
