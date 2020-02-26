@@ -3,12 +3,14 @@ import Header from './components/Header';
 import Search from './components/Search';
 import UserInfo from './components/UserInfo';
 import Modal from './components/Modal';
+import ProgressBar from './components/ProgressBar';
 import './App.css';
 
 const App = () => {
   const [url, setUrl] = useState('');
   const [user, setUser] = useState(null);
   const [modal, setModal] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const handleUsername = username =>
     setUrl(`https://api.github.com/users/${username}`);
@@ -31,10 +33,14 @@ const App = () => {
         return followers.reverse();
       };
 
+      setLoading(true);
+
       let res = await fetch(url);
       let user = await res.json();
 
       if (user.message === 'Not Found') {
+        setLoading(false);
+        if (user) setUser(null)
         setModal(true);
         setUrl('');
         return;
@@ -48,6 +54,7 @@ const App = () => {
       user.created_at = new Date(user.created_at);
 
       setUser(user);
+      setLoading(false);
     };
 
     if (url.length) fetchUserData();
@@ -57,7 +64,7 @@ const App = () => {
     <div className='App'>
       <Header />
       <Search handleUsername={handleUsername} />
-      {user && <UserInfo user={user} />}
+      {isLoading ? <ProgressBar /> : user && <UserInfo user={user} />}
       <Modal show={modal} toggleModal={toggleModal} />
     </div>
   );
