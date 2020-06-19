@@ -1,5 +1,5 @@
 {
-  "name": "github-profile-analyzer",
+  "name": "github-user-analyzer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

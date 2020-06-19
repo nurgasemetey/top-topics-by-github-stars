@@ -8,7 +8,7 @@ const Header = () => (
           <span className="icon">
             <i className="fab fa-github" />
           </span>{" "}
-          &nbsp; GitHub Profile Analyzer{" "}
+          &nbsp; GitHub User Analyzer{" "}
         </p>
         <p className="subtitle is-3 is-size-6-mobile">Analyze a GitHub user</p>
       </div>
