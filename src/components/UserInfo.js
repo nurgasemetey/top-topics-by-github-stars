@@ -5,8 +5,9 @@ import Followers from "./Followers";
 import PropTypes from "prop-types";
 
 const UserInfo = ({ user }) => {
-  const { created_at, login, followers_info, repos } = user;
+  const { login, followers_info, repos } = user;
 
+  const created_at = new Date(user.created_at);
   const createdYear = created_at.getFullYear();
   const actualYear = new Date().getFullYear();
   const moreThanOneYear = actualYear - createdYear > 1;
