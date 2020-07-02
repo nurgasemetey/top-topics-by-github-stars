@@ -27,7 +27,5 @@ export async function getUserData(username) {
 
   user.repos = await getRepos(user.repos_url);
 
-  user.followers_info = await getData(`${user.followers_url}?per_page=8`);
-
   return user;
 }
