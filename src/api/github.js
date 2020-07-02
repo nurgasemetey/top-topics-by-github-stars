@@ -5,9 +5,15 @@ async function getData(url) {
     },
   });
 
-  res = await res.json();
+  let data = await res.json();
 
-  return res;
+  return data;
+}
+
+async function getRepos(url, per_page = 7) {
+  let repos = await getData(`${url}?sort=pushed&per_page${per_page}`);
+
+  return repos;
 }
 
 export async function getUserData(username) {
@@ -19,7 +25,7 @@ export async function getUserData(username) {
     throw new Error('Invalid username');
   }
 
-  user.repos = await getData(`${user.repos_url}?per_page=6&sort=pushed`);
+  user.repos = await getRepos(user.repos_url);
 
   user.followers_info = await getData(`${user.followers_url}?per_page=8`);
 
