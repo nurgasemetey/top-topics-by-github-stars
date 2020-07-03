@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getUserData } from './api/github';
-import Header from './components/Header';
-import Search from './components/Search';
-import UserInfo from './components/UserInfo';
+import Header from './components/header';
+import Search from './components/search';
+import Overview from './components/overview';
 import Modal from './components/Modal';
 import ProgressBar from './components/ProgressBar';
-import './App.css';
+import { Box, BaseStyles } from '@primer/components';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -37,12 +37,14 @@ const App = () => {
   }, [username]);
 
   return (
-    <div className="App">
+    <BaseStyles>
       <Header />
       <Search handleUsername={handleUsername} />
-      {isLoading ? <ProgressBar /> : user && <UserInfo user={user} />}
+      <Box width={[1, null, 'medium', 'large']} mx='auto'>
+	{isLoading ? <ProgressBar /> : user && <Overview data={user} />}
+      </Box> 
       <Modal show={modal} toggleModal={toggleModal} />
-    </div>
+    </BaseStyles>
   );
 };
 
