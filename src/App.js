@@ -4,7 +4,7 @@ import Header from './components/header';
 import Search from './components/search';
 import Overview from './components/overview';
 import Modal from './components/Modal';
-import ProgressBar from './components/ProgressBar';
+import ProgressBar from './components/progress-bar';
 import { Box, BaseStyles } from '@primer/components';
 
 const App = () => {
