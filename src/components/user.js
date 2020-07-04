@@ -26,7 +26,7 @@ const octiconsProps = {
 };
 
 export default ({
-  data: { avatar_url, name, bio, company, location, blog },
+  data: { avatar_url, html_url, name, bio, company, location, blog },
 }) => (
   <>
     <Flex alignItems='center' justifyContent='center' my={5}>
@@ -66,8 +66,17 @@ export default ({
         {bio}
       </Text>
     )}
-    <Button as='a' href='#'>
-      Follow
-    </Button>
+    <Box sx={{ textAlign: 'center' }}>
+      <Button
+        sx={{ fontWeight: 'normal' }}
+        display={['block', 'inline']}
+        as='a'
+        target='_blank'
+        variant='large'
+        href={html_url}
+      >
+        Follow
+      </Button>
+    </Box>
   </>
 );

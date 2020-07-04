@@ -17,6 +17,7 @@ export default ({
     following,
     public_repos,
     public_gists,
+    html_url,
     repos,
   },
 }) => (
@@ -32,7 +33,7 @@ export default ({
         Overview for <Text color='blue.5'>{login}</Text>
       </Heading>
     </Link>
-    <User data={{ avatar_url, name, bio, company, location, blog }} />
+    <User data={{ avatar_url, html_url, name, bio, company, location, blog }} />
     <Counter
       data={{ login, followers, following, public_repos, public_gists }}
     />
