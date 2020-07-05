@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import { ProgressBar as primeProgressBar } from '@primer/components';
 
 const ProgressBar = styled(primeProgressBar)`
+  @keyframes moveIndeterminate {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
   animation-name: moveIndeterminate;
