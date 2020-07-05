@@ -2,3 +2,8 @@
   background-color: #f6f8fa;
   min-height: 100vh;
 }
+
+reach-portal {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
