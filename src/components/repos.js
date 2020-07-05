@@ -53,7 +53,7 @@ export default ({ data: { repos, login } }) => (
           sx={{ fontWeight: 'normal' }}
           as='a'
           textAlign='center'
-          variant='larger'
+          variant='large'
           href={`https://github.com/${login}?tab=repositories`}
         >
           View all

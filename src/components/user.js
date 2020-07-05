@@ -72,7 +72,7 @@ export default ({
         display={['block', 'inline']}
         as='a'
         target='_blank'
-        variant='larger'
+        variant='large'
         href={html_url}
       >
         Follow
