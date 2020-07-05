@@ -3,7 +3,7 @@ import { getUserData } from './api/github';
 import Header from './components/header';
 import Search from './components/search';
 import Overview from './components/overview';
-import Modal from './components/Modal';
+import Modal from './components/modal';
 import ProgressBar from './components/progress-bar';
 import { Box, BaseStyles } from '@primer/components';
 
@@ -13,7 +13,7 @@ const App = () => {
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
-  const handleUsername = username => setUsername(username);
+  const handleUsername = (username) => setUsername(username);
 
   const toggleModal = () => setModal(!modal);
 
@@ -41,8 +41,8 @@ const App = () => {
       <Header />
       <Search handleUsername={handleUsername} />
       <Box width={[1, null, 'medium', 'large']} mx='auto'>
-	{isLoading ? <ProgressBar /> : user && <Overview data={user} />}
-      </Box> 
+        {isLoading ? <ProgressBar /> : user && <Overview data={user} />}
+      </Box>
       <Modal show={modal} toggleModal={toggleModal} />
     </BaseStyles>
   );
