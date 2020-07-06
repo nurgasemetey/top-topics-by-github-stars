@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { TextInput, Flex, ButtonPrimary } from '@primer/components';
+import { TextInput, Flex } from '@primer/components';
+import { Search } from '@primer/octicons-react';
 
 export default ({ handleUsername }) => {
   const inputText = useRef(null);
@@ -17,16 +18,11 @@ export default ({ handleUsername }) => {
     <Flex justifyContent='center' mb={5}>
       <form onSubmit={handleSubmit}>
         <TextInput
+          width={['80vw', null, 'small']}
+          icon={Search}
           placeholder='Username'
-          variant={[null, 'large']}
           ref={inputText}
         />
-        <ButtonPrimary
-          sx={{ fontWeight: 'normal' }}
-          variant={['small', 'large']}
-        >
-          Analyze
-        </ButtonPrimary>
       </form>
     </Flex>
   );
