@@ -26,5 +26,5 @@ const ProgressBar = styled(primeProgressBar)`
 `;
 
 export default () => (
-  <ProgressBar barSize='large' width={['80vw', null, 'inherit']} mx='auto' />
+  <ProgressBar barSize='large' width={['80vw', null, 'small']} mx='auto' />
 );
