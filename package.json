@@ -5,6 +5,11 @@
   "dependencies": {
     "@primer/components": "^19.1.1",
     "@primer/styled-octicons": "^10.0.0",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
+    "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
