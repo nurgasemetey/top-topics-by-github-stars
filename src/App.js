@@ -6,7 +6,7 @@ import Overview from './components/overview';
 import Modal from './components/modal';
 import ProgressBar from './components/progress-bar';
 import { Box, BaseStyles } from '@primer/components';
-// Apollo
+
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
 import { HttpLink } from 'apollo-link-http';
@@ -20,7 +20,6 @@ const httpLink = new HttpLink({
   uri: 'https://api.github.com/graphql',
 });
 
-// Global.Apollo
 const authMiddleware = (authToken) =>
   new ApolloLink((operation, forward) => {
     // add the authorization to the headers
@@ -34,16 +33,12 @@ const authMiddleware = (authToken) =>
 
     return forward(operation);
   });
-// export const useAppApolloClient = () => {
-//   const authToken = '2b46981edd1fef0c84eaad54e7f86650f58e2446';
-//   return new ApolloClient({
-//     link: authMiddleware(authToken).concat(httpLink),
-//   });
-// };
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: authMiddleware('2b46981edd1fef0c84eaad54e7f86650f58e2446').concat(httpLink),
 });
+
 const GetRepositoryInfoQuery = gql`
 {
   viewer {
