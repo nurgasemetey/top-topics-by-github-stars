@@ -11,7 +11,7 @@ import {
 import { StarIcon, RepoIcon, CalendarIcon } from '@primer/styled-octicons';
 
 const TopTopic = ({
-  topTopic: { key, topTopics },
+  topTopic: { key, topTopics, year, month },
 }) => (
   <Flex
     as='li'
@@ -25,7 +25,7 @@ const TopTopic = ({
       <CalendarIcon mr={2} />
 
       <Text pl='3' fontWeight='bold'>
-        {key}
+        {year}  {month}
       </Text>
       <div style={{marginTop:20}} >
 

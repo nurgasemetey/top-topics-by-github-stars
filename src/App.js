@@ -158,7 +158,7 @@ const App = () => {
         })
         const groupedByMonth = _.groupBy(cleaned, item => {
           const starredAtTime = moment(item.starredAt);
-          const value=  `${starredAtTime.year()}-${starredAtTime.month()}`;
+          const value=  `${starredAtTime.year()}-${starredAtTime.format("MM")}`;
           return value;
         });
         let topYearMonthTopics = [];
@@ -168,10 +168,13 @@ const App = () => {
           for (let item of groupedByMonth[key]) allTopics.push(...item.topics);
           const stats = count(allTopics);
           let topTopics = _.take(stats, 3);
+          const yearMonth = key.split('-');
           if(topTopics.length > 0) {
             topYearMonthTopics.push({
               key: key,
-              topTopics: topTopics
+              topTopics: topTopics,
+              month: moment(yearMonth[1], 'M').format('MMMM'),
+              year:yearMonth[0]
             })
           }
           
