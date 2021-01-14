@@ -102,11 +102,11 @@ query($page_index:Int!, $page_cursor:String!){
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState('nurgasemetey');
+  // const [token, setToken] = useState('nurgasemetey');
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
-  const handleUsername = (username) => setUsername(username);
+  // const handleUsername = (username) => setUsername(username);
 
   const toggleModal = () => setModal(!modal);
 
@@ -114,10 +114,10 @@ const App = () => {
     async function loadData() {
       setLoading(true);
       try {
-        const tmpUser = await getUserData(username, TOKEN);
+        const tmpUser = await getUserData(TOKEN);
         const firstStarredRepositories = myData;
 
-        // const stars = await getUserStarred(username);
+        // const stars = await getUserStarred(tmpUser.login);
         // let result = await client
         //   .query({
         //     query: firstQuery,
@@ -191,14 +191,14 @@ const App = () => {
       }
       setLoading(false);
     }
-
-    if (username.length) loadData();
-  }, [username]);
+    loadData();
+    // if (TOKEN.length) loadData();
+  }, []);
 
   return (
     <BaseStyles>
       <Header />
-      <Search handleUsername={handleUsername} />
+      {/* <Search handleUsername={handleUsername} /> */}
       <Box width={[1, null, 'medium', 'large']} mx='auto'>
         {isLoading ? <ProgressBar /> : user && <Overview data={user} />}
       </Box>
