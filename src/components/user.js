@@ -66,17 +66,5 @@ export default ({
         {bio}
       </Text>
     )}
-    <Box sx={{ textAlign: 'center' }}>
-      <Button
-        sx={{ fontWeight: 'normal' }}
-        display={['block', 'inline']}
-        as='a'
-        target='_blank'
-        variant='large'
-        href={html_url}
-      >
-        Follow
-      </Button>
-    </Box>
   </>
 );

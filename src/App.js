@@ -84,7 +84,6 @@ const App = () => {
   const toggleModal = () => setModal(!modal);
 
   const saveToken = (token) => {
-    console.log("saving", token);
     localStorage.setItem('token', token);
     setModal(false);
     loadData();
@@ -120,7 +119,6 @@ const App = () => {
         
         const tmpUser = await getUserData();
         const firstStarredRepositories = myData;
-        // console.log(firstQuery)
         // let result = await client
         //   .query({
         //     query: firstQuery,
