@@ -102,7 +102,7 @@ query($page_index:Int!, $page_cursor:String!){
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('nurgasemetey');
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -114,16 +114,17 @@ const App = () => {
     async function loadData() {
       setLoading(true);
       try {
-        const tmpUser = await getUserData(username);
+        const tmpUser = await getUserData(username, TOKEN);
+        const firstStarredRepositories = myData;
+
         // const stars = await getUserStarred(username);
-        let result = await client
-          .query({
-            query: firstQuery,
-            variables: {
-              "page_index": 100
-            }
-          });
-          const firstStarredRepositories = myData;
+        // let result = await client
+        //   .query({
+        //     query: firstQuery,
+        //     variables: {
+        //       "page_index": 100
+        //     }
+          // });
         // const firstStarredRepositories = result.data.viewer.starredRepositories.edges;
         // if (firstStarredRepositories.length === 100) {
         //   let cursor = firstStarredRepositories[99].cursor;
@@ -167,15 +168,17 @@ const App = () => {
           for (let item of groupedByMonth[key]) allTopics.push(...item.topics);
           const stats = count(allTopics);
           let topTopics = _.take(stats, 3);
-          topYearMonthTopics.push({
-            key: key,
-            topTopics: topTopics
-          })
+          if(topTopics.length > 0) {
+            topYearMonthTopics.push({
+              key: key,
+              topTopics: topTopics
+            })
+          }
           
        });
       
-        console.log(groupedByMonth);
-
+        console.log(topYearMonthTopics);
+        tmpUser.topTopics = topYearMonthTopics;
         setUser(tmpUser);
       } catch (err) {
         console.log(err)

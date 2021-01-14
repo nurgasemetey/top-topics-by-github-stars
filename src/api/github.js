@@ -1,7 +1,8 @@
-async function getData(url) {
+async function getData(url, token) {
   let res = await fetch(url, {
     headers: {
       Accept: 'application/vnd.github.v3+json',
+      Authorization: `Bearer ${token}`
     },
   });
 
@@ -16,16 +17,14 @@ async function getRepos(url, per_page = 7) {
   return repos;
 }
 
-export async function getUserData(username) {
+export async function getUserData(username, token) {
   const url = `https://api.github.com/users/${username}`;
 
-  let user = await getData(url);
+  let user = await getData(url, token);
 
   if (user.message === 'Not Found') {
     throw new Error('Invalid username');
   }
-
-  user.repos = await getRepos(user.repos_url);
 
   return user;
 }

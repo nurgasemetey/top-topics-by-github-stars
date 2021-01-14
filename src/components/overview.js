@@ -2,6 +2,7 @@ import React from 'react';
 import User from './user';
 import Counter from './counter';
 import Repos from './repos';
+import TopTopics from './top-topics';
 import { Box, Link, Text, Heading } from '@primer/components';
 
 export default ({
@@ -19,6 +20,7 @@ export default ({
     public_gists,
     html_url,
     repos,
+    topTopics
   },
 }) => (
   <Box p={3} id='overview'>
@@ -34,9 +36,10 @@ export default ({
       </Heading>
     </Link>
     <User data={{ avatar_url, html_url, name, bio, company, location, blog }} />
-    <Counter
+    {/* <Counter
       data={{ login, followers, following, public_repos, public_gists }}
-    />
-    <Repos data={{ repos, login }} />
+    /> */}
+    {/* <Repos data={{ repos, login }} /> */}
+    <TopTopics data={{ topTopics, login }} />
   </Box>
 );
