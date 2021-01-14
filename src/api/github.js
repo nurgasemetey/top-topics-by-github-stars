@@ -5,7 +5,9 @@ async function getData(url, token) {
       Authorization: `Bearer ${token}`
     },
   });
-
+  if(!res.ok) {
+    throw new Error('Invalid username');
+  }
   let data = await res.json();
 
   return data;

@@ -183,7 +183,7 @@ const App = () => {
         tmpUser.topTopics = topYearMonthTopics;
         setUser(tmpUser);
       } catch (err) {
-        console.log(err)
+        console.log(err);
         setUser(null);
         setLoading(false);
         setModal(true);

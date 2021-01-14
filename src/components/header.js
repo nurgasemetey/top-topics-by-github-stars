@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Heading } from '@primer/components';
+import { Flex, Heading, Label, Box } from '@primer/components';
 import { MarkGithubIcon } from '@primer/styled-octicons';
 
 export default () => (
@@ -19,5 +19,14 @@ export default () => (
     >
       Your Top Topics on Github
     </Heading>
+    <Box p={3}>
+      <a href="https://twitter.com/nurgasemetey"
+        rel="noopener noreferrer"
+        target="_blank">
+        <Label variant="medium" bg="#3CBDEF" m={1}>
+          Built By @nurgasemetey
+        </Label>
+      </a>
+    </Box>
   </Flex>
 );
