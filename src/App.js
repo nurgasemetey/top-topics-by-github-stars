@@ -15,6 +15,8 @@ import { ApolloLink } from "apollo-link";
 import myData from './starred_repos.json';
 import _ from 'lodash';
 import moment from 'moment';
+var count = require('count-array-values')
+
 // Global.Auth
 let TOKEN = '8b9f96a9cf836b77096abee02dd837a42f2c7f97'
 
@@ -145,11 +147,32 @@ const App = () => {
         //     } 
         //   }
         // }
-        var groupedByMonth = _.groupBy(firstStarredRepositories, item => {
+        const cleaned = firstStarredRepositories.map((item)=> {
+          const topicItems = item.node.repositoryTopics.edges;
+          const topicList = topicItems.map((topicItem)=> topicItem.node.topic.name);
+          return {
+            starredAt: item.starredAt,
+            topics: topicList
+          };
+        })
+        const groupedByMonth = _.groupBy(cleaned, item => {
           const starredAtTime = moment(item.starredAt);
           const value=  `${starredAtTime.year()}-${starredAtTime.month()}`;
           return value;
         });
+        let topYearMonthTopics = [];
+        Object.keys(groupedByMonth).forEach(function (key) {
+          // do something with obj[key]
+          let allTopics = [];
+          for (let item of groupedByMonth[key]) allTopics.push(...item.topics);
+          const stats = count(allTopics);
+          let topTopics = _.take(stats, 3);
+          topYearMonthTopics.push({
+            key: key,
+            topTopics: topTopics
+          })
+          
+       });
       
         console.log(groupedByMonth);
 
