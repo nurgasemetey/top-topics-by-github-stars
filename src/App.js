@@ -118,37 +118,37 @@ const App = () => {
         });
         
         const tmpUser = await getUserData();
-        const firstStarredRepositories = myData;
-        // let result = await client
-        //   .query({
-        //     query: firstQuery,
-        //     variables: {
-        //       "page_index": 100
-        //     }
-        //   });
-        // const firstStarredRepositories = result.data.viewer.starredRepositories.edges;
-        // if (firstStarredRepositories.length === 100) {
-        //   let cursor = firstStarredRepositories[99].cursor;
-        //   while (true) {
-        //     let result = await client
-        //       .query({
-        //         query: nextQueries,
-        //         variables: {
-        //           "page_index": 100,
-        //           "page_cursor": cursor
-        //         }
-        //       });
-        //     const starredRepositories = result.data.viewer.starredRepositories.edges;
-        //     firstStarredRepositories.push(...starredRepositories);
-        //     console.log(starredRepositories.length);
-        //     if(starredRepositories.length === 0){
-        //       break;
-        //     }
-        //     else{
-        //       cursor = starredRepositories[starredRepositories.length-1].cursor;
-        //     } 
-        //   }
-        // }
+        // const firstStarredRepositories = myData;
+        let result = await client
+          .query({
+            query: firstQuery,
+            variables: {
+              "page_index": 100
+            }
+          });
+        const firstStarredRepositories = result.data.viewer.starredRepositories.edges;
+        if (firstStarredRepositories.length === 100) {
+          let cursor = firstStarredRepositories[99].cursor;
+          while (true) {
+            let result = await client
+              .query({
+                query: nextQueries,
+                variables: {
+                  "page_index": 100,
+                  "page_cursor": cursor
+                }
+              });
+            const starredRepositories = result.data.viewer.starredRepositories.edges;
+            firstStarredRepositories.push(...starredRepositories);
+            console.log(starredRepositories.length);
+            if(starredRepositories.length === 0){
+              break;
+            }
+            else{
+              cursor = starredRepositories[starredRepositories.length-1].cursor;
+            } 
+          }
+        }
         const cleaned = firstStarredRepositories.map((item)=> {
           const topicItems = item.node.repositoryTopics.edges;
           const topicList = topicItems.map((topicItem)=> topicItem.node.topic.name);
