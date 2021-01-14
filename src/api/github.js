@@ -11,14 +11,9 @@ async function getData(url, token) {
   return data;
 }
 
-export async function getUserData(token) {
+export async function getUserData() {
   const url = `https://api.github.com/user`;
-
+  const token = localStorage.getItem('token');
   let user = await getData(url, token);
-
-  if (user.message === 'Not Found') {
-    throw new Error('Invalid username');
-  }
-
   return user;
 }

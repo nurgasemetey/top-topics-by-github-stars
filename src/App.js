@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getUserData, getUserStarred } from './api/github';
 import Header from './components/header';
-import Search from './components/search';
 import Overview from './components/overview';
 import Modal from './components/modal';
 import ProgressBar from './components/progress-bar';
@@ -18,31 +17,6 @@ import moment from 'moment';
 var count = require('count-array-values')
 
 // Global.Auth
-let TOKEN = '8b9f96a9cf836b77096abee02dd837a42f2c7f97'
-
-const httpLink = new HttpLink({
-  uri: 'https://api.github.com/graphql',
-});
-
-const authMiddleware = (authToken) =>
-  new ApolloLink((operation, forward) => {
-    // add the authorization to the headers
-    if (authToken) {
-      operation.setContext({
-        headers: {
-          authorization: `Bearer ${authToken}`,
-        },
-      });
-    }
-
-    return forward(operation);
-  });
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: authMiddleware(TOKEN).concat(httpLink),
-});
-
 const firstQuery = gql`
 query($page_index:Int!){
   viewer {
@@ -102,7 +76,6 @@ query($page_index:Int!, $page_cursor:String!){
 
 const App = () => {
   const [user, setUser] = useState(null);
-  // const [token, setToken] = useState('nurgasemetey');
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -110,21 +83,51 @@ const App = () => {
 
   const toggleModal = () => setModal(!modal);
 
-  useEffect(() => {
-    async function loadData() {
-      setLoading(true);
-      try {
-        const tmpUser = await getUserData(TOKEN);
-        const firstStarredRepositories = myData;
+  const saveToken = (token) => {
+    console.log("saving", token);
+    localStorage.setItem('token', token);
+    setModal(false);
+    loadData();
+  }
 
-        // const stars = await getUserStarred(tmpUser.login);
+
+  const loadData = async () => {
+    setLoading(true);
+      try {
+        const httpLink = new HttpLink({
+          uri: 'https://api.github.com/graphql',
+        });
+        
+        const authMiddleware = () =>
+          new ApolloLink((operation, forward) => {
+            // add the authorization to the headers
+            const token = localStorage.getItem('token');
+            if (token) {
+              operation.setContext({
+                headers: {
+                  authorization: `Bearer ${token}`,
+                },
+              });
+            }
+        
+            return forward(operation);
+          });
+        
+        const client = new ApolloClient({
+          cache: new InMemoryCache(),
+          link: authMiddleware().concat(httpLink),
+        });
+        
+        const tmpUser = await getUserData();
+        const firstStarredRepositories = myData;
+        // console.log(firstQuery)
         // let result = await client
         //   .query({
         //     query: firstQuery,
         //     variables: {
         //       "page_index": 100
         //     }
-          // });
+        //   });
         // const firstStarredRepositories = result.data.viewer.starredRepositories.edges;
         // if (firstStarredRepositories.length === 100) {
         //   let cursor = firstStarredRepositories[99].cursor;
@@ -183,15 +186,18 @@ const App = () => {
         setUser(tmpUser);
       } catch (err) {
         console.log(err)
-        if (err.message === 'Invalid username') {
-          setUser(null);
-          setLoading(false);
-          setModal(true);
-        }
+        setUser(null);
+        setLoading(false);
+        setModal(true);
       }
       setLoading(false);
+  }
+
+  useEffect(() => {
+    async function load() {
+      await loadData();
     }
-    loadData();
+    load();
     // if (TOKEN.length) loadData();
   }, []);
 
@@ -202,7 +208,7 @@ const App = () => {
       <Box width={[1, null, 'medium', 'large']} mx='auto'>
         {isLoading ? <ProgressBar /> : user && <Overview data={user} />}
       </Box>
-      <Modal show={modal} toggleModal={toggleModal} />
+      <Modal show={modal} toggleModal={toggleModal} saveToken={saveToken}/>
     </BaseStyles>
   );
 };
