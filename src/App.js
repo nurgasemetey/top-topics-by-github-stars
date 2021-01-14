@@ -176,8 +176,6 @@ const App = () => {
           }
           
        });
-      
-        console.log(topYearMonthTopics);
         tmpUser.topTopics = topYearMonthTopics;
         setUser(tmpUser);
       } catch (err) {

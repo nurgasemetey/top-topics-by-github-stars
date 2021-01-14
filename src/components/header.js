@@ -17,7 +17,7 @@ export default () => (
       textAlign='center'
       mt={[2, 0]}
     >
-      Analyze a GitHub user
+      Your Top Topics on Github
     </Heading>
   </Flex>
 );
