@@ -13,11 +13,11 @@ export default () => (
     <Heading
       color='black'
       as='h1'
-      fontSize={[4, 6, null, 7]}
+      fontSize={4}
       textAlign='center'
       mt={[2, 0]}
     >
-      Your Top Topics on Github
+      Your Top Topics By Your Star History  on Github
     </Heading>
     <Box p={3}>
       <a href="https://twitter.com/nurgasemetey"
