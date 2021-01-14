@@ -11,7 +11,6 @@ import gql from 'graphql-tag';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloLink } from "apollo-link";
-import myData from './starred_repos.json';
 import _ from 'lodash';
 import moment from 'moment';
 var count = require('count-array-values')
