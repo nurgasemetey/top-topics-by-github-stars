@@ -13,7 +13,7 @@ export default function ({ show, toggleModal, saveToken }) {
       </Dialog.Header>
       <Box p={3} justifyContent="center">
         <Flex mt={3} justifyContent="center">
-          <Text>This app uses GitHub API to retrieve repository metadata. To fetch your star history, this app needs personal access token with "repo" scope. Please <a href="https://github.com/settings/tokens/new">create token</a> with "repo" scope. Token will be stored in local storage.</Text>
+          <Text>This app uses GitHub API to retrieve repository metadata. To fetch your star history, this app needs personal access token. Please <a href="https://github.com/settings/tokens/new">create token</a>. Token will be stored in local storage.</Text>
         </Flex>
 
         {/* <Flex justifyContent="center">
