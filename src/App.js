@@ -77,7 +77,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [starsFetched, setStarsFetched] = useState(null); 
+  const [starsFetched, setStarsFetched] = useState(0); 
 
   const toggleModal = () => setModal(!modal);
 
