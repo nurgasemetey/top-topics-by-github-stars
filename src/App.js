@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getUserData, getUserStarred } from './api/github';
+import { getUserData } from './api/github';
 import Header from './components/header';
 import Overview from './components/overview';
 import Modal from './components/modal';
 import ProgressBar from './components/progress-bar';
-import { Box, BaseStyles } from '@primer/components';
+import { Box, BaseStyles, Flex, Button, Text } from '@primer/components';
 
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
@@ -77,8 +77,6 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
-
-  // const handleUsername = (username) => setUsername(username);
 
   const toggleModal = () => setModal(!modal);
 
@@ -191,20 +189,27 @@ const App = () => {
   }
 
   useEffect(() => {
-    async function load() {
-      await loadData();
-    }
-    load();
-    // if (TOKEN.length) loadData();
   }, []);
 
   return (
     <BaseStyles>
       <Header />
-      {/* <Search handleUsername={handleUsername} /> */}
-      <Box width={[1, null, 'medium', 'large']} mx='auto'>
+      <Box p={3}>
+        <Flex mt={3} justifyContent="center">
+        <Text>It can take much longer time if you have more than 500 stars</Text>
+        </Flex>
+      </Box>
+      <Box p={3}>
+        <Flex mt={3} justifyContent="center">
+          <Button onClick={() => {
+            loadData();
+          }}>Find your top topics</Button>
+        </Flex>
+      </Box>
+      <Box mt={3} width={[1, null, 'medium', 'large']} mx='auto'>
         {isLoading ? <ProgressBar /> : user && <Overview data={user} />}
       </Box>
+      
       <Modal show={modal} toggleModal={toggleModal} saveToken={saveToken}/>
     </BaseStyles>
   );

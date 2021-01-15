@@ -6,7 +6,7 @@ async function getData(url, token) {
     },
   });
   if(!res.ok) {
-    throw new Error('Invalid username');
+    throw new Error('error');
   }
   let data = await res.json();
 
