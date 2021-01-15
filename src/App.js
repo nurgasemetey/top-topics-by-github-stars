@@ -172,7 +172,8 @@ const App = () => {
               key: key,
               topTopics: topTopics,
               month: moment(yearMonth[1], 'M').format('MMMM'),
-              year:yearMonth[0]
+              year:yearMonth[0],
+              numberOfStars: groupedByMonth[key].length
             })
           }
           
