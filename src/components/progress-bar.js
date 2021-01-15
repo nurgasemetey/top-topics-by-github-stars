@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProgressBar as primeProgressBar } from '@primer/components';
+import { ProgressBar as primeProgressBar, Text, Flex,Box } from '@primer/components';
 
 const ProgressBar = styled(primeProgressBar)`
   @keyframes moveIndeterminate {
@@ -25,6 +25,14 @@ const ProgressBar = styled(primeProgressBar)`
   );
 `;
 
-export default () => (
-  <ProgressBar barSize='large' width={['80vw', null, 'small']} mx='auto' />
+export default ({starsFetched}) => (
+  <Flex
+    flexDirection={['column']}
+    alignItems='center'
+    justifyContent='center'
+  >
+    <Text mr={3}>{starsFetched} stars fetched</Text>
+    <ProgressBar barSize='large' width={['80vw', null, 'small']} mx='auto' />
+  </Flex>
+  
 );

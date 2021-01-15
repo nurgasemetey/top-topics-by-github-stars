@@ -77,6 +77,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [modal, setModal] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [starsFetched, setStarsFetched] = useState(null); 
 
   const toggleModal = () => setModal(!modal);
 
@@ -123,8 +124,10 @@ const App = () => {
               "page_index": 100
             }
           });
+        let fetched = 100;
         const firstStarredRepositories = result.data.viewer.starredRepositories.edges;
         if (firstStarredRepositories.length === 100) {
+          setStarsFetched(fetched);
           let cursor = firstStarredRepositories[99].cursor;
           while (true) {
             let result = await client
@@ -138,12 +141,15 @@ const App = () => {
             const starredRepositories = result.data.viewer.starredRepositories.edges;
             firstStarredRepositories.push(...starredRepositories);
             console.log(starredRepositories.length);
+            fetched+=starredRepositories.length;
+            setStarsFetched(fetched);
             if(starredRepositories.length === 0){
               break;
             }
             else{
               cursor = starredRepositories[starredRepositories.length-1].cursor;
-            } 
+            }
+
           }
         }
         const cleaned = firstStarredRepositories.map((item)=> {
@@ -208,7 +214,7 @@ const App = () => {
         </Flex>
       </Box>
       <Box mt={3} width={[1, null, 'medium', 'large']} mx='auto'>
-        {isLoading ? <ProgressBar /> : user && <Overview data={user} />}
+        {isLoading ? <ProgressBar starsFetched={starsFetched} /> : user && <Overview data={user} />}
       </Box>
       
       <Modal show={modal} toggleModal={toggleModal} saveToken={saveToken}/>
