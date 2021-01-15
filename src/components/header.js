@@ -9,7 +9,11 @@ export default () => (
     justifyContent='center'
     height={['150px', '180px']}
   >
-    <MarkGithubIcon size='44' mr={[null, 3]} />
+    <a href="https://github.com/nurgasemetey/top-topics-by-github-stars/"
+      rel="noopener noreferrer"
+      target="_blank">
+      <MarkGithubIcon size='44' mr={[null, 3]} />
+    </a>
     <Heading
       color='black'
       as='h1'
